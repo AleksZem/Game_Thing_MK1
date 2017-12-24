@@ -62,10 +62,11 @@ void Game::update(){
 	count++;
 	manager.refresh();
 	manager.update();
-	if (newPlayer.getComponent<TransformComponent>().x() > 200) {
+	newPlayer.getComponent<TransformComponent>().position.add(Vector2D(5, 0));
+	if (newPlayer.getComponent<TransformComponent>().position.x > 200) {
 		newPlayer.getComponent<SpriteComponent>().setTexture("assets/Player2.png");
 	}
-	std::cout << newPlayer.getComponent<TransformComponent>().x() << "," << newPlayer.getComponent<TransformComponent>().y() << std::endl;
+	std::cout << newPlayer.getComponent<TransformComponent>().position;
 }
 
 void Game::render(){

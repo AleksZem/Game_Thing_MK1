@@ -24,8 +24,8 @@ public:
 		destRect.w = destRect.h = 64;
 	}
 	void update() override {
-		destRect.x = transform->x();
-		destRect.y = transform->y();
+		destRect.x = static_cast<int>(transform->position.x);
+		destRect.y = static_cast<int>(transform->position.y);
 	}
 	void draw() override {
 		TextureManager::draw(texture, srcRect, destRect);

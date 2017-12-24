@@ -1,71 +1,71 @@
 #include "Vector2D.h"
 
-Vector2D::Vector2D(){
-	x = 0.0f;
-	y = 0.0f;
-}
-
-Vector2D::Vector2D(float x, float y){
-	this->x = x;
-	this->y = y;
-
-}
-
 Vector2D & Vector2D::add(const Vector2D & vec){
-	
+	this->x += vec.x;
+	this->y += vec.y;
+	return *this;
 }
 
-Vector2D & Vector2D::sub(const Vector2D & vec)
-{
-	// TODO: insert return statement here
+Vector2D & Vector2D::sub(const Vector2D & vec){
+	this->x -= vec.x;
+	this->y -= vec.y;
+	return *this;
 }
 
 Vector2D & Vector2D::mult(const Vector2D & vec)
 {
-	// TODO: insert return statement here
+	this->x *= vec.x;
+	this->y *= vec.y;
+	return *this;
 }
 
 Vector2D & Vector2D::div(const Vector2D & vec)
 {
-	// TODO: insert return statement here
+	this->x /= vec.x;
+	this->y /= vec.y;
+	return *this;
 }
 
-Vector2D & Vector2D::operator+=(const Vector2D & vec)
-{
-	// TODO: insert return statement here
+Vector2D & Vector2D::operator+=(const Vector2D & vec){
+	return this->add(vec);
 }
 
 Vector2D & Vector2D::operator-=(const Vector2D & vec)
 {
-	// TODO: insert return statement here
+	return this->sub(vec);
 }
 
 Vector2D & Vector2D::operator*=(const Vector2D & vec)
 {
-	// TODO: insert return statement here
+	return this->mult(vec);
 }
 
 Vector2D & Vector2D::operator/=(const Vector2D & vec)
 {
-	// TODO: insert return statement here
+	return this->div(vec);
+}
+
+std::ostream & operator<<(std::ostream & os, const Vector2D & vec)
+{
+	return os << "X: " << vec.x << ", Y: " << vec.y << '\n';
 }
 
 Vector2D & operator+(Vector2D & v1, const Vector2D & v2)
 {
-	// TODO: insert return statement here
+	return v1.add(v2);
 }
 
 Vector2D & operator-(Vector2D & v1, const Vector2D & v2)
 {
-	// TODO: insert return statement here
+	return v1.sub(v2);
 }
 
 Vector2D & operator*(Vector2D & v1, const Vector2D & v2)
 {
-	// TODO: insert return statement here
+	return v1.mult(v2);
 }
 
 Vector2D & operator/(Vector2D & v1, const Vector2D & v2)
 {
-	// TODO: insert return statement here
+	return v1.div(v2);
 }
