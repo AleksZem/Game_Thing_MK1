@@ -44,6 +44,7 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	map1 = new Map();
 	newPlayer.addComponents<TransformComponent>(50,30);
 	newPlayer.addComponents<SpriteComponent>("assets/Player.png");
+	newPlayer.addComponents<KeyboardController>();
 }
 
 void Game::handleEvents() {
@@ -63,11 +64,8 @@ void Game::update(){
 	count++;
 	manager.refresh();
 	manager.update();
-	newPlayer.getComponent<TransformComponent>().position.add(Vector2D(5, 0));
-	if (newPlayer.getComponent<TransformComponent>().position.x > 200) {
-		newPlayer.getComponent<SpriteComponent>().setTexture("assets/Player2.png");
-	}
-	std::cout << newPlayer.getComponent<TransformComponent>().position;
+	
+	std::cout << "Tick: " << count << ", " << newPlayer.getComponent<TransformComponent>().position;
 }
 
 void Game::render(){

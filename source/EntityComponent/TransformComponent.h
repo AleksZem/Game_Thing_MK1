@@ -8,7 +8,10 @@ private:
 public:
 	Vector2D position;
 	Vector2D velocity;
-	int speed = 8;
+	int speed = 4;
+	int height = 32;
+	int width = 32;
+	int scale = 1;
 
 	TransformComponent() { position.x = position.y = 0.0f; }
 
