@@ -5,6 +5,7 @@
 
 Map* map1;
 SDL_Renderer* Game::renderer = nullptr;
+SDL_Event Game::event;
 Manager manager;
 auto& newPlayer(manager.addEntity());
 
@@ -46,7 +47,7 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 }
 
 void Game::handleEvents() {
-	SDL_Event event;
+	
 	SDL_PollEvent(&event);
 	switch (event.type) {
 	case SDL_QUIT:
