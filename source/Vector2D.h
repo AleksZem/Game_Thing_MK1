@@ -26,5 +26,8 @@ public:
 	Vector2D& operator-=(const Vector2D& vec);
 	Vector2D& operator*=(const Vector2D& vec);
 	Vector2D& operator/=(const Vector2D& vec);
+	Vector2D& operator*(const int& scalarMult);
+	Vector2D& operator*(const float& scalarMult);
+	Vector2D& zeroOut();
 	
 };

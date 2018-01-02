@@ -45,6 +45,23 @@ Vector2D & Vector2D::operator/=(const Vector2D & vec)
 	return this->div(vec);
 }
 
+Vector2D & Vector2D::operator*(const int & scalarMult){
+	this->x *= scalarMult;
+	this->y *= scalarMult;
+	return *this;
+}
+
+Vector2D & Vector2D::operator*(const float & scalarMult){
+	this->x *= scalarMult;
+	this->y *= scalarMult;
+	return *this;
+}
+
+Vector2D & Vector2D::zeroOut(){
+	this->x = this->y = 0.0f;
+	return *this;
+}
+
 std::ostream & operator<<(std::ostream & os, const Vector2D & vec)
 {
 	return os << "X: " << vec.x << ", Y: " << vec.y << '\n';

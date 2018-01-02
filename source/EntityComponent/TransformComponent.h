@@ -1,5 +1,5 @@
 #pragma once
-#include "Components.h"
+//#include "Components.h"
 #include "../Vector2D.h"
 
 class TransformComponent : public Component {
@@ -13,10 +13,10 @@ public:
 	int width = 32;
 	int scale = 1;
 
-	TransformComponent() { position.x = position.y = 0.0f; }
+	TransformComponent() { position.zeroOut(); }
 
 	TransformComponent(int scale) { 
-		position.x = position.y = 0.0f; 
+		position.zeroOut(); 
 		this->scale = scale;
 	}
 
@@ -35,7 +35,7 @@ public:
 	}
 
 
-	void init() override {	velocity.x = velocity.y = 0; }
+	void init() override {	velocity.zeroOut(); }
 
 	void update() override {
 		position.x += velocity.x * speed;

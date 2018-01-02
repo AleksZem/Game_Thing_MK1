@@ -1,4 +1,5 @@
 #include "Collision.h"
+#include "EntityComponent/CollisionComponent.h"
 
 bool Collision::AABBCollision(const SDL_Rect & rectA, const SDL_Rect & rectB)
 {
@@ -11,4 +12,12 @@ bool Collision::AABBCollision(const SDL_Rect & rectA, const SDL_Rect & rectB)
 	else {
 		return false;
 	}
+}
+
+bool Collision::AABBCollision(const CollisionComponent & colliderA, const CollisionComponent & colliderB){
+	if (AABBCollision(colliderA.collider, colliderB.collider)) {
+		std::cout << colliderA.colliderTag << " hit detected: " << colliderB.colliderTag << std::endl;
+		return true;
+	}
+	return false;
 }

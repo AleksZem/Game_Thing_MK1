@@ -8,8 +8,12 @@ Map* map1;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Manager manager;
+std::vector<CollisionComponent*> Game::colliders;
 auto& newPlayer(manager.addEntity());
 auto& boundary(manager.addEntity());
+auto& tile0(manager.addEntity());
+auto& tile1(manager.addEntity());
+auto& tile2(manager.addEntity());
 
 Game::Game(){
 
@@ -44,11 +48,16 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	}
 
 	map1 = new Map();
+	tile0.addComponents<TileComponent>(200, 200, 32, 32, 0);
+	tile1.addComponents<TileComponent>(250, 250, 32, 32, 2);
+	tile1.addComponents<CollisionComponent>("dirt");
+	tile2.addComponents<TileComponent>(150,150,32,32,1);
+	tile2.addComponents<CollisionComponent>("grass");
 	newPlayer.addComponents<TransformComponent>(2);
 	newPlayer.addComponents<SpriteComponent>("assets/Player.png");
 	newPlayer.addComponents<KeyboardController>();
 	newPlayer.addComponents<CollisionComponent>("Me");
-	boundary.addComponents<TransformComponent>(200.0f, 200.0f, 300, 10, 1);
+	boundary.addComponents<TransformComponent>(400.0f, 400.0f, 300, 10, 1);
 	boundary.addComponents<SpriteComponent>("assets/dirt.png");
 	boundary.addComponents<CollisionComponent>("Boundary");
 }
@@ -70,20 +79,16 @@ void Game::update(){
 	count++;
 	manager.refresh();
 	manager.update();
-	if (Collision::AABBCollision(newPlayer.getComponent<CollisionComponent>().collider, boundary.getComponent<CollisionComponent>().collider)) {
-		std::cout << "Collided with wall" << std::endl;
-		newPlayer.getComponent<TransformComponent>().scale = 1;
-		//newPlayer.getComponent<TransformComponent>().position.x = 0.0f;
-		//newPlayer.getComponent<TransformComponent>().position.y = 0.0f;
 
+	for (auto collider : colliders) {
+		Collision::AABBCollision(newPlayer.getComponent<CollisionComponent>(), *collider);
 	}
-	
 	//std::cout << "Tick: " << count << ", " << newPlayer.getComponent<TransformComponent>().position;
 }
 
 void Game::render(){
 	SDL_RenderClear(renderer);
-	map1->drawMap();
+	//map1->drawMap();
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }

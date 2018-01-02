@@ -5,4 +5,5 @@
 #include "../TextureManager.h"
 #include "KeyboardController.h"
 #include "CollisionComponent.h"
+#include "TileComponent.h"
 
