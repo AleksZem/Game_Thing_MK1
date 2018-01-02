@@ -4,4 +4,5 @@
 #include "SpriteComponent.h"
 #include "../TextureManager.h"
 #include "KeyboardController.h"
+#include "CollisionComponent.h"
 

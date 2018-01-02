@@ -2,12 +2,14 @@
 #include "TextureManager.h"
 #include "Map.h"
 #include "EntityComponent\Components.h"
+#include "Collision.h"
 
 Map* map1;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 Manager manager;
 auto& newPlayer(manager.addEntity());
+auto& boundary(manager.addEntity());
 
 Game::Game(){
 
@@ -42,9 +44,13 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	}
 
 	map1 = new Map();
-	newPlayer.addComponents<TransformComponent>(50,30);
+	newPlayer.addComponents<TransformComponent>(2);
 	newPlayer.addComponents<SpriteComponent>("assets/Player.png");
 	newPlayer.addComponents<KeyboardController>();
+	newPlayer.addComponents<CollisionComponent>("Me");
+	boundary.addComponents<TransformComponent>(200.0f, 200.0f, 300, 10, 1);
+	boundary.addComponents<SpriteComponent>("assets/dirt.png");
+	boundary.addComponents<CollisionComponent>("Boundary");
 }
 
 void Game::handleEvents() {
@@ -64,8 +70,15 @@ void Game::update(){
 	count++;
 	manager.refresh();
 	manager.update();
+	if (Collision::AABBCollision(newPlayer.getComponent<CollisionComponent>().collider, boundary.getComponent<CollisionComponent>().collider)) {
+		std::cout << "Collided with wall" << std::endl;
+		newPlayer.getComponent<TransformComponent>().scale = 1;
+		//newPlayer.getComponent<TransformComponent>().position.x = 0.0f;
+		//newPlayer.getComponent<TransformComponent>().position.y = 0.0f;
+
+	}
 	
-	std::cout << "Tick: " << count << ", " << newPlayer.getComponent<TransformComponent>().position;
+	//std::cout << "Tick: " << count << ", " << newPlayer.getComponent<TransformComponent>().position;
 }
 
 void Game::render(){
