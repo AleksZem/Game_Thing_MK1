@@ -19,6 +19,7 @@ public:
 	void render();
 	void clean();
 	bool running() { return isRunning; }
+	static void addTile(int ID, int xPos, int yPos);
 	static SDL_Event event;
 	static SDL_Renderer* renderer;
 	static std::vector<CollisionComponent*> colliders;

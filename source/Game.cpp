@@ -11,9 +11,6 @@ Manager manager;
 std::vector<CollisionComponent*> Game::colliders;
 auto& newPlayer(manager.addEntity());
 auto& boundary(manager.addEntity());
-auto& tile0(manager.addEntity());
-auto& tile1(manager.addEntity());
-auto& tile2(manager.addEntity());
 
 Game::Game(){
 
@@ -48,11 +45,7 @@ void Game::init(const char * title, int xPos, int yPos, int width, int height, b
 	}
 
 	map1 = new Map();
-	tile0.addComponents<TileComponent>(200, 200, 32, 32, 0);
-	tile1.addComponents<TileComponent>(250, 250, 32, 32, 2);
-	tile1.addComponents<CollisionComponent>("dirt");
-	tile2.addComponents<TileComponent>(150,150,32,32,1);
-	tile2.addComponents<CollisionComponent>("grass");
+	Map::loadMap("assets/map1_16x16.map",16,16);
 	newPlayer.addComponents<TransformComponent>(2);
 	newPlayer.addComponents<SpriteComponent>("assets/Player.png");
 	newPlayer.addComponents<KeyboardController>();
@@ -88,7 +81,6 @@ void Game::update(){
 
 void Game::render(){
 	SDL_RenderClear(renderer);
-	//map1->drawMap();
 	manager.draw();
 	SDL_RenderPresent(renderer);
 }
@@ -98,5 +90,10 @@ void Game::clean(){
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 	std::cout << "Game cleaned" << std::endl;
+}
+
+void Game::addTile(int ID, int xPos, int yPos){
+	auto& tile(manager.addEntity());
+	tile.addComponents<TileComponent>(xPos, yPos, 32, 32, ID);
 }
 
