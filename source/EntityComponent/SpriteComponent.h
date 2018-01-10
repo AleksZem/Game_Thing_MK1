@@ -8,9 +8,20 @@ private:
 	TransformComponent * transform;
 	SDL_Texture * texture;
 	SDL_Rect srcRect, destRect;
+	bool animated = false;
+	int frames = 0;
+	int ms_delay = 100;
 public:
 	SpriteComponent() = default;
 	SpriteComponent(const char* filePath) {
+		setTexture(filePath);
+	}
+	SpriteComponent(const char* filePath, int num_frames, int delay) {
+		if (num_frames > 1) {
+			animated = true;
+			frames = num_frames;
+			ms_delay = delay;
+		}
 		setTexture(filePath);
 	}
 	~SpriteComponent() {
@@ -28,6 +39,10 @@ public:
 		srcRect.h = transform->height;
 	}
 	void update() override {
+		if (animated) {
+			srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / ms_delay) % frames);
+		}
+
 		destRect.x = static_cast<int>(transform->position.x);
 		destRect.y = static_cast<int>(transform->position.y);
 		destRect.w = transform->width * transform->scale;
